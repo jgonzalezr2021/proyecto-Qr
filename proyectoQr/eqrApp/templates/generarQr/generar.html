@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% load humanize %} {% load customfilter %} {% block pageContent %}
+{% load static %}
+<header>
+    <!-- Intro settings -->
+    <style>
+        #intro {
+            /* Margin to fix overlapping fixed navbar */
+            margin-top: 58px;
+        }
+        
+        @media (max-width: 991px) {
+            #intro {
+                /* Margin to fix overlapping fixed navbar */
+                margin-top: 45px;
+            }
+        }
+    
+     
+        button {
+       display: flex;
+       align-items: center;
+       font-family: inherit;
+       font-weight: 500;
+       font-size: 17px;
+       padding: 0.8em 1.3em 0.8em 0.9em;
+       color: white;
+       background: #ad5389;
+       background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+       border: none;
+       letter-spacing: 0.05em;
+       border-radius: 16px;
+       }
+
+       button svg {
+       margin-right: 3px;
+       transform: rotate(30deg);
+       transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+       }
+
+       button span {
+       transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+       }
+
+       button:hover svg {
+       transform: translateX(5px) rotate(90deg);
+       }
+
+       button:hover span {
+       transform: translateX(7px);
+       }
+   </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient fixed-top shadow border-bottom">
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" target="_blank" href="./">
+                {% comment %} <img src="{{ MEDIA_URL }}/default/logo.png" height="16" alt="{{ MEDIA_URL }}" loading="lazy" class="bg-white bg-gradient px-1 py-1" style="margin-top: -3px;" /> {% endcomment %}
+                <b>Detector y generador de codigo QR y de barras</b>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="topNav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'home-page' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'generarQr' %}">Generar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'detectarQr' %}">Detectar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'gestionProductos' %}">Registros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'employee-page' %}">Vcard</a>
+                    </li>
+                    
+                </ul>
+
+                <ul class="navbar-nav d-flex flex-row">
+                    {% if user.id %}
+                    <li class="nav-item">
+                        <span class="nav-link"><b>Hola, {{user.username}}</b></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Salir</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Jumbotron -->
+    <div id="intro" class="pt-2 text-center bg-light">
+        <!-- <h1 class="mb-3 h2">Learn Bootstrap 5 with MDB</h1>
+        <p class="mb-3">Best & free guide of responsive web design</p>
+        <a class="btn btn-primary m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" role="button" rel="nofollow" target="_blank">Start tutorial</a>
+        <a class="btn btn-primary m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank" role="button">Download MDB UI KIT</a> -->
+    </div>
+    <!-- Jumbotron -->
+</header>
+
+    <section class="home">
+        <div class="text"> <h2>Generador de códigos QR y de barras. </h2>
+            Para genera codigos QR y codigos de barra seleccione el tipo de codigo que desea y a continuación
+            escriba lo que se desea encriptar y posteriormente clic en generar. <br /> <br>
+            
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                    
+                        <form method="POST">
+                             {% csrf_token %}
+                                    <label for="typeOfBarcode"> <small>Elija un tipo de código del menú:</small> </label>
+                                    <select class="form-control" id="typeOfBarcode" name="typeOfBarcode">
+                                        {% for barcode_type in barcode_types %}
+                                        <option>{{ barcode_type }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="barcodeData"><small>Agregar datos:</small></label>
+                                    <input type="text" id="barcodeData" name="barcodeData" class="form-control input" required />
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="btnGenerate"><small>Clic para generar</small></label>
+                                <div class="col-sm-2">
+                                    <button type="submit" id="btnGenerate" class="button">
+                                            
+                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"></path></svg>
+                                        <span>Generar </span>
+                                    </button>
+                                
+                                </div>
+
+                               
+                        </form>
+                    
+
+                    </div>
+                    <div class="col-md-6">
+                        <br>    
+                        <div style="text-align: center;" >
+                             <img src="{% static 'assets/default/img/Generar.png' %}" align="right" alt="codigo qr">
+                        </div>
+                </div>
+                    
+                   
+                    
+                </div>
+           
+          
+            
+        
+            
+            
+    </section>
+    {% endblock pageContent %} {% block ScriptBlock %}
+   <script>
+
+   </script>
+{% endblock ScriptBlock %}
+
+

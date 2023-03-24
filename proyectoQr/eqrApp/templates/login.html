@@ -1,0 +1,386 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'assets/default/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/default/js/script.js' %}"></script>
+<style>
+    main {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+    }
+    #logo-img{
+        height: 11em;
+        width: 26em;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        *
+        {
+	        margin: 0;
+	        padding: 0;
+	        box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+         body 
+        {
+            display: flex;
+        	justify-content: center;
+        	align-items: center;
+        	min-height: 100vh;
+        	flex-direction: column;
+        	background: #23242a;
+        }
+        .box 
+            {
+        	position: relative;
+	        width: 380px;
+	        height: 420px;
+	        background: #1c1c1c;
+	        border-radius: 8px;
+	        overflow: hidden;
+        }
+        .box::before 
+        {
+        	content: '';
+	        z-index: 1;
+        	position: absolute;
+        	top: -50%;
+        	left: -50%;
+        	width: 380px;
+        	height: 420px;
+        	transform-origin: bottom right;
+        	background: linear-gradient(0deg,transparent,#45f3ff,#45f3ff);
+        	animation: animate 6s linear infinite;
+        }
+        .box::after 
+        {
+        	content: '';
+        	z-index: 1;
+        	position: absolute;
+        	top: -50%;
+        	left: -50%;
+        	width: 380px;
+        	height: 420px;
+        	transform-origin: bottom right;
+        	background: linear-gradient(0deg,transparent,#45f3ff,#45f3ff);
+        	animation: animate 6s linear infinite;
+        	animation-delay: -3s;
+        }
+        @keyframes animate 
+        {
+	        0%
+	        {
+	        	transform: rotate(0deg);
+	        }
+	        100%
+	        {
+	        	transform: rotate(360deg);
+	        }
+        }
+        form 
+        {
+        	position: absolute;
+        	inset: 2px;
+        	background: #28292d;
+        	padding: 50px 40px;
+        	border-radius: 8px;
+        	z-index: 2;
+        	display: flex;
+        	flex-direction: column;
+        }
+        h2 
+        {
+        	color: #45f3ff;
+        	font-weight: 500;
+        	text-align: center;
+        	letter-spacing: 0.1em;
+        }
+        .inputBox 
+        {
+        	position: relative;
+        	width: 300px;
+        	margin-top: 35px;
+        }
+        .inputBox input 
+        {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            outline: none;
+            box-shadow: none;
+            border: none;
+            color: #23242a;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            z-index: 10;
+        }
+        .inputBox span 
+        {
+            position: absolute;
+            left: 0;
+            padding: 20px 0px 10px;
+            pointer-events: none;
+            font-size: 1em;
+            color: #8f8f8f;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+        }
+        .inputBox input:valid ~ span,
+        .inputBox input:focus ~ span 
+        {
+            color: #45f3ff;
+            transform: translateX(0px) translateY(-34px);
+            font-size: 0.75em;
+        }
+        .inputBox i 
+        {
+            
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: #45f3ff;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.5s;
+            pointer-events: none;
+            z-index: 9;
+        }
+        .inputBox input:valid ~ i,
+        .inputBox input:focus ~ i 
+        {
+            height: 44px;
+        }
+        .col-md-4
+        {
+            display: flex;
+            justify-content: space-between;
+        }
+        .col-md-4 a 
+        {
+            margin: 10px 0;
+            font-size: 0.75em;
+            color: #8f8f8f;
+            text-decoration: beige;
+        }
+        .col-md-4 a:hover, 
+        .col-md-4 a:nth-child(2)
+        {
+            color: #45f3ff;
+        }
+        input[type="submit"]
+        {
+            border: none;
+            outline: none;
+            padding: 11px 25px;
+            background: #45f3ff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 600;
+            width: 100px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:active 
+        {
+            opacity: 0.8;
+        }
+        
+
+
+
+</style>
+<title>Login </title>
+</head>
+<body>
+    <div class="box">
+                
+        <form autocomplete="off" id="login-user" action="" method="POST">
+                {% csrf_token %}
+			<h2>Iniciar sesión</h2>
+			<div class="inputBox">
+                <a class="fa-solid fa-user"></a><!--cargar el ico desde la pagina fontawesome-->
+				<input type="text" name="username" id="username" placeholder="Usuario" required>
+				
+                <i></i>
+				
+			</div>
+			<div class="inputBox">
+                <a class="fa-solid fa-key"></a><!--cargar el ico desde la pagina fontawesome-->
+				<input type="password" name="password" id="password" placeholder="Contraseña" required>
+				
+				<i></i>
+			</div>
+            <input type="submit" value="Ingresar " class="submit_button">
+            {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+            {% endfor %}
+            <div class="links">
+				<!-- <a href="#">No tienes una cuenta aun?</a>-->
+				
+			</div>
+        </form>
+    </div>
+
+
+
+<script>
+    $(function() {
+        $('#login-user').submit(function(e) {
+            e.preventDefault();
+            var _this = $(this)
+            $('.err-msg').remove();
+            var el = $('<div>')
+            el.addClass("alert alert-danger err-msg")
+            el.hide()
+            if (_this[0].checkValidity() == false) {
+                _this[0].reportValidity();
+                return false;
+            }
+            start_loader();
+            $.ajax({
+                headers: {
+                    "X-CSRFToken": '{{csrf_token}}'
+                },
+                url: "{% url 'login-user' %}",
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: err => {
+                    console.log(err)
+                    alert("An error occured", 'error');
+                    end_loader();
+                },
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        el.removeClass("alert alert-danger err-msg")
+                        location.href = "{% url 'home-page' %}"
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        el.text(resp.msg)
+                    } else {
+                        el.text("An error occured", 'error');
+                        end_loader();
+                        console.err(resp)
+                    }
+                    _this.prepend(el)
+                    el.show('slow')
+                    $("html, body, .modal").scrollTop(0);
+                    end_loader()
+                }
+            })
+        })
+    })
+</script>
+
+<script>
+    const loader = $('<div>')
+    loader.attr('id', 'pre-loader')
+    loader.html('<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>')
+
+    window.start_loader = function() {
+        $('body').removeClass('loading')
+        if ($('#pre-loader').length > 0)
+            $('#pre-loader').remove();
+        $('body').append(loader)
+        $('body').addClass('loading')
+    }
+    window.end_loader = function() {
+        if ($('#pre-loader').length > 0)
+            $('#pre-loader').remove();
+        $('body').removeClass('loading')
+    }
+    window.uni_modal = function($title = '', $url = '', $size = "") {
+        start_loader()
+        $.ajax({
+            url: $url,
+            error: err => {
+                console.log()
+                alert("Un error ha ocurrido")
+            },
+            success: function(resp) {
+                if (resp) {
+                    $('#uni_modal .modal-title').html($title)
+                    $('#uni_modal .modal-body').html(resp)
+                    if ($size != '') {
+                        $('#uni_modal .modal-dialog').addClass($size + '  modal-dialog-centered')
+                    } else {
+                        $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
+                    }
+                    $('#uni_modal').modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        focus: true
+                    })
+                    $('#uni_modal').modal('show')
+                    end_loader()
+                }
+            }
+        })
+    }
+    window._conf = function($msg = '', $func = '', $params = []) {
+        $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+        $('#confirm_modal .modal-body').html($msg)
+        $('#confirm_modal').modal('show')
+    }
+    
+    $(function() {
+        $('#uni_modal').on('shown.bs.modal', function() {
+            if ($('#e-details').length > 0) {
+                var delete_btn = $('<button id="delete-btn" class="btn btn-danger btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-trash"></i> Delete</button>')
+                var edit_btn = $('<a id="edit-btn" href="' + emp_edit_url + '" class="btn btn-primary btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-edit"></i> Edit</a>')
+                $(this).find('.modal-sub-footer').prepend(delete_btn)
+                $(this).find('.modal-sub-footer').prepend(edit_btn)
+                delete_btn.click(function() {
+                    _conf("¿Estás seguro de eliminar a este empleado?", "delete_employee")
+                })
+
+                $('#uni_modal').on('hide.bs.modal', function() {
+                    delete_btn.remove()
+                    edit_btn.remove()
+                })
+
+            }
+        })
+    })
+
+    function delete_employee() {
+        start_loader()
+        $.ajax({
+            url: emp_delete_url,
+            error: err => {
+                console.error(err)
+                alert("An error occurred.")
+                end_loader()
+            },
+            success: function(resp) {
+                if (resp.status == 'success') {
+                    location.reload()
+                } else if (!!resp.msg) {
+                    alert(resp.msg)
+                }
+                end_loader()
+            }
+        })
+    }
+</script>
+</body>
+</html>
