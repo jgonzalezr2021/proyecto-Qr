@@ -178,8 +178,8 @@
         $(function() {
             $('#uni_modal').on('shown.bs.modal', function() {
                 if ($('#e-details').length > 0) {
-                    var delete_btn = $('<button id="delete-btn" class="btn btn-danger btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-trash"></i> Delete</button>')
-                    var edit_btn = $('<a id="edit-btn" href="' + emp_edit_url + '" class="btn btn-primary btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-edit"></i> Edit</a>')
+                    var delete_btn = $('<button id="delete-btn" class="btn btn-danger btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-trash"></i> Borrar</button>')
+                    var edit_btn = $('<a id="edit-btn" href="' + emp_edit_url + '" class="btn btn-primary btn-sm bg-gradient rounded-0 me-2"><i class="fa fa-edit"></i> Editar</a>')
                     $(this).find('.modal-sub-footer').prepend(delete_btn)
                     $(this).find('.modal-sub-footer').prepend(edit_btn)
                     delete_btn.click(function() {

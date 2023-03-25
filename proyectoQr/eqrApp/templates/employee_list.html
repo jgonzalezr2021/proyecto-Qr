@@ -80,7 +80,7 @@
         })
         $('#uni_modal').on('shown.bs.modal', function() {
             if ($('#id-card').length > 0) {
-                var print_btn = $('<button id="print-card" class="btn btn-success btn-sm bg-gradient rounded-0 me-2" type="button"><i class="fa fa-print"></i> Print</button>')
+                var print_btn = $('<button id="print-card" class="btn btn-success btn-sm bg-gradient rounded-0 me-2" type="button"><i class="fa fa-print"></i> Imprimir</button>')
                 $(this).find('.modal-sub-footer').prepend(print_btn)
                 print_btn.click(function() {
                     var h = $("head").clone()
