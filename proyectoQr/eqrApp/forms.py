@@ -10,7 +10,7 @@ class SaveEmployee(forms.ModelForm):
     segundo_nombre = forms.CharField(max_length=250, label="segundo nombre", required=False)
     apellido = forms.CharField(max_length=250, label="apellido")
     dob = forms.DateField(label="Birthday")
-    genero = forms.ChoiceField(choices=[("Masculino","Masculino"), ("femenino","femenino")], label="Genero")
+    genero = forms.ChoiceField(choices=[("masculino","masculino"), ("femenino","femenino")], label="Genero")
     contacto = forms.CharField(max_length=250, label="Contacto #")
     email = forms.CharField(max_length=250, label="Email")
     direccion = forms.Textarea()

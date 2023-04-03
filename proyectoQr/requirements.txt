@@ -8,4 +8,4 @@ barcode
 pyzbar
 opencv-python==4.4.0.46
 python-dotenv
-barcode==0.13.1
+python-barcode

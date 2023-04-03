@@ -13,7 +13,7 @@ class Employee(models.Model):
     primer_nombre = models.CharField(max_length=250)
     segundo_nombre = models.CharField(max_length=250, null=True)
     apellido = models.CharField(max_length=250)
-    genero = models.CharField(max_length=50, choices=(("Masculino","Masculino"), ("femenino","femenino")), default="Masculino")
+    genero = models.CharField(max_length=50, choices=(("masculino","masculino"), ("femenino","femenino")), default="masculino")
     dob = models.DateField(max)
     contacto = models.CharField(max_length=100)
     email = models.CharField(max_length=250, blank=True)
